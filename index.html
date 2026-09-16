@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Thanda Garam Co. — Made for Every Craving</title>
+<meta name="description" content="Slush, softy, churros, momos & cigar rolls in Vikaspuri, Delhi. 100% Vegetarian. Made for every craving.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<!-- Tab (favicon) icon — swap the href to your logo/fab-icon image path -->
+<link rel="icon" type="image/png" href="images/logo-2-removebg-preview.png">
+<style>
+  :root{
+    --purple:#D297FF;
+    --purple-deep:#7A29B0;
+    --purple-ink:#2B0A3D;
+    --lime:#C9FB07;
+    --lime-deep:#9AC300;
+    --white:#FFFFFF;
+    --cream:#FBF7FF;
+    --blush:#EFDCD6;
+    --ink:#1B0524;
+    --shadow: 6px 6px 0 var(--ink);
+    --radius-blob: 62% 38% 55% 45% / 45% 55% 45% 55%;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{opacity:0; transform:translateY(34px); transition:opacity .7s ease, transform .7s cubic-bezier(.22,.9,.3,1);}
+    .reveal.in-view{opacity:1; transform:translateY(0);}
+    .reveal-tilt{opacity:0; transform:translateY(70px) rotate(calc(var(--tilt, -6) * 1deg)) scale(.94); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.85,.3,1);}
+    .reveal-tilt.in-view{opacity:1; transform:translateY(0) rotate(calc(var(--tilt, -6) * .35deg)) scale(1);}
+    .hero-enter{opacity:0; transform:translateY(24px);}
+    .hero-enter.go{opacity:1; transform:translateY(0); transition:opacity .8s ease, transform .8s cubic-bezier(.22,.9,.3,1);}
+  }
+  @keyframes floatY{ 0%,100%{transform:translateY(0) rotate(var(--rot,0deg));} 50%{transform:translateY(-10px) rotate(var(--rot,0deg));} }
+  @keyframes softPulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    line-height:0.92;
+    letter-spacing:0.3px;
+    margin:0;
+    text-transform:uppercase;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+  ::selection{background:var(--lime); color:var(--ink);}
+
+  /* ---------- offset block heading (echoes the real logo treatment) ---------- */
+  .block-heading{position:relative; display:inline-block;}
+  .block-heading .b1{
+    display:block; position:relative; z-index:2;
+    font-size:clamp(2.2rem, 6vw, 4.4rem);
+  }
+  .block-heading .b1::before{
+    content:'';
+    position:absolute; left:-8px; right:-8px; top:8%; bottom:8%;
+    background:var(--purple); z-index:-1; transform:translateX(-4%);
+  }
+  .block-heading .b2{
+    display:block; position:relative; z-index:2; margin-top:-0.12em;
+    font-size:clamp(2.2rem, 6vw, 4.4rem);
+  }
+  .block-heading .b2::before{
+    content:'';
+    position:absolute; left:-8px; right:-8px; top:6%; bottom:6%;
+    background:var(--lime); z-index:-1; transform:translateX(4%);
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--blush);
+    border-bottom:3px solid var(--ink);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 6px 0 rgba(27,5,36,0.06);}
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:8px 24px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand img{height:64px; width:auto; max-width:220px; object-fit:contain; display:block;}
+  .navlinks{display:flex; gap:30px; align-items:center;}
+  .navlinks a{font-weight:700; font-size:0.92rem; position:relative; padding:4px 0;}
+  .navlinks a:hover{color:var(--purple-deep);}
+  .navlinks a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:3px; background:var(--lime); transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--ink); color:var(--white); padding:10px 20px;
+    border-radius:999px; font-weight:700; font-size:0.88rem;
+    border:2px solid var(--ink);
+  }
+  .nav-cta:hover{background:var(--purple); color:var(--ink);}
+  .burger{display:none; font-size:1.6rem; background:none; border:none; cursor:pointer;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--cream);
+    padding:60px 0 0;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center;
+    max-width:1180px; margin:0 auto; padding:0 24px 60px;
+  }
+  .eyebrow-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--white); border:2px solid var(--ink); border-radius:999px;
+    padding:6px 14px; font-weight:700; font-size:0.82rem; margin-bottom:20px;
+  }
+  .eyebrow-pill .star{color:var(--purple-deep);}
+  .hero h1{font-size:clamp(2.6rem, 6.4vw, 5rem); margin-bottom:6px;}
+  .hero h1 .accent-row{display:block; position:relative;}
+  .hero h1 .accent-row.p::before{content:'';position:absolute; left:-10px; right:-10px; top:10%; bottom:10%; background:var(--purple); z-index:-1;}
+  .hero h1 .accent-row.l::before{content:'';position:absolute; left:-10px; right:-14%; top:6%; bottom:6%; background:var(--lime); z-index:-1;}
+  .hero h1 span{position:relative; z-index:2;}
+  .hero-sub{
+    font-size:1.15rem; max-width:440px; margin:26px 0 30px; font-weight:500; color:#3d1a52;
+  }
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:36px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:14px 26px;
+    border-radius:999px; font-weight:800; font-size:0.95rem; border:2.5px solid var(--ink);
+    cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--lime); color:var(--ink); box-shadow:var(--shadow);}
+  .btn-primary:hover{transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink);}
+  .btn-ghost{background:var(--white); color:var(--ink);}
+  .btn-ghost:hover{background:var(--purple); transform:translate(-3px,-3px);}
+  .hero-stats{display:flex; gap:34px; flex-wrap:wrap;}
+  .stat b{font-family:'Anton'; font-size:1.9rem; display:block;}
+  .stat span{font-size:0.82rem; font-weight:700; color:#5c3170;}
+
+  .hero-photo{position:relative;}
+  .hero-photo-frame{
+    border-radius:var(--radius-blob);
+    overflow:hidden; border:4px solid var(--ink);
+    box-shadow:12px 12px 0 var(--purple);
+    aspect-ratio:4/4.6; 
+  }
+  .hero-photo-frame img{width:100%; height:auto; object-fit:cover;}
+  .floaty{
+    position:absolute; border:3px solid var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:'Anton'; text-transform:uppercase; line-height:1; padding:8px;
+  }
+  .floaty-1{
+    width:118px; height:118px; background:var(--lime); top:-22px; right:-18px;
+    font-size:0.85rem; box-shadow:5px 5px 0 var(--ink);
+    --rot:-8deg; animation:floatY 5s ease-in-out infinite;
+  }
+  .floaty-2{
+    width:96px; height:96px; background:var(--white); bottom:6%; left:-30px;
+    font-size:0.72rem; box-shadow:5px 5px 0 var(--ink);
+    --rot:6deg; animation:floatY 6s ease-in-out infinite 0.6s;
+  }
+  @media (prefers-reduced-motion: reduce){ .floaty-1, .floaty-2{animation:none; transform:rotate(var(--rot));} }
+
+  /* ---------- marquee ---------- */
+  .marquee-strip{
+    background:var(--ink); color:var(--white); overflow:hidden;
+    border-top:3px solid var(--ink); border-bottom:3px solid var(--ink);
+    padding:14px 0;
+  }
+  .marquee-track{display:flex; width:max-content; animation:scroll 28s linear infinite;}
+  .marquee-track span{
+    font-family:'Anton'; font-size:1.15rem; text-transform:uppercase;
+    padding:0 28px; white-space:nowrap; display:flex; align-items:center; gap:28px;
+  }
+  .marquee-track span.lime{color:var(--lime);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
+  /* ---------- section shell ---------- */
+  section{padding:96px 0;}
+  .section-tag{
+    font-weight:800; font-size:0.85rem; letter-spacing:0.5px; color:var(--purple-deep);
+    margin-bottom:14px; display:block;
+  }
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(2rem, 4.6vw, 3.2rem);}
+  .section-head p{font-size:1.05rem; color:#4a2761; margin-top:16px; max-width:520px; font-weight:500;}
+
+  /* ---------- slush promise ---------- */
+  .slush-promise{
+    background:var(--lime); position:relative; overflow:hidden;
+  }
+  .slush-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center;}
+  .section-tag.light{color:var(--purple-ink);}
+  .slush-copy h2{font-size:clamp(2.1rem, 4.6vw, 3.1rem); margin-bottom:22px;}
+  .slush-copy > p{font-size:1.05rem; line-height:1.7; color:#20360a; font-weight:600; max-width:480px; margin-bottom:32px;}
+  .slush-features{list-style:none; margin:0 0 32px; padding:0; display:flex; flex-direction:column; gap:18px;}
+  .slush-features li{display:flex; gap:16px; align-items:flex-start;}
+  .chip-icon{
+    width:46px; height:46px; flex-shrink:0; border-radius:50%; background:var(--white);
+    border:2.5px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+  }
+  .slush-features b{display:block; font-size:1.02rem; margin-bottom:3px;}
+  .slush-features p{margin:0; font-size:0.92rem; color:#2c4310; font-weight:500; line-height:1.5;}
+  .slush-photo{position:relative; --tilt:-5;}
+  .slush-photo img{
+    width:100%; aspect-ratio:7/9; object-fit:cover; border-radius:28px;
+    border:4px solid var(--ink); box-shadow:12px 12px 0 var(--purple-ink);
+  }
+  .slush-badge{
+    position:absolute; top:-18px; left:-18px; width:104px; height:104px; border-radius:50%;
+    background:var(--purple-ink); color:var(--white); border:3px solid var(--ink);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; box-shadow:5px 5px 0 var(--ink); animation:softPulse 3.4s ease-in-out infinite;
+  }
+  .slush-badge span{font-size:0.62rem; font-weight:800; letter-spacing:0.8px; color:var(--lime);}
+  .slush-badge b{font-family:'Anton'; font-size:1.05rem; line-height:1.1; margin-top:2px;}
+  @media (prefers-reduced-motion: reduce){ .slush-badge{animation:none;} }
+
+  /* ---------- about ---------- */
+  .about{background:var(--white);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .about-copy p{font-size:1.08rem; line-height:1.75; color:#3a1c4d; margin:0 0 18px; font-weight:500;}
+  .about-copy p strong{color:var(--purple-deep);}
+  .quote-strip{
+    border-left:4px solid var(--lime-deep); padding-left:18px; margin:26px 0;
+    font-style:italic; font-weight:600; font-size:1.05rem;
+  }
+  .about-photos{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .about-photos img{border-radius:24px; border:3px solid var(--ink);}
+  .about-photos .p1{margin-top:44px; box-shadow:8px 8px 0 var(--purple);}
+  .about-photos .p2{box-shadow:8px 8px 0 var(--lime);}
+
+  /* ---------- menu ---------- */
+  .menu-section{background:var(--purple-ink); color:var(--white); position:relative;}
+  .menu-section .section-tag{color:var(--lime);}
+  .menu-section .section-head p{color:#d9c4ea;}
+  .menu-cols{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  .menu-col{
+    background:rgba(255,255,255,0.04); border:2.5px solid rgba(255,255,255,0.18);
+    border-radius:28px; padding:36px 30px;
+  }
+  .menu-col-head{display:flex; align-items:center; gap:14px; margin-bottom:8px;}
+  .menu-col-head .swatch{width:20px; height:20px; border-radius:6px;}
+  .thanda .swatch{background:var(--purple);}
+  .garam .swatch{background:var(--lime);}
+  .menu-col-head h3{font-size:2rem;}
+  .menu-col-sub{font-size:0.85rem; color:#c9aee0; font-weight:600; margin-bottom:26px; font-style:italic;}
+  .menu-group{margin-bottom:28px;}
+  .menu-group h4{font-family:'Plus Jakarta Sans'; font-weight:800; font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:var(--lime); margin-bottom:14px;}
+  .thanda .menu-group h4{color:var(--purple);}
+  .menu-item{
+    display:flex; justify-content:space-between; gap:16px; padding:11px 0;
+    border-bottom:1px dashed rgba(255,255,255,0.18); font-weight:600; font-size:0.98rem;
+  }
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item .item-name{max-width:65%;}
+  .menu-item .item-name small{display:block; font-weight:500; color:#c9aee0; font-size:0.78rem; margin-top:2px;}
+  .menu-item .price{font-family:'Anton'; letter-spacing:0.5px; white-space:nowrap;}
+  .menu-note{
+    margin-top:20px; text-align:center; font-size:0.85rem; font-weight:700;
+    color:var(--lime); letter-spacing:0.4px;
+  }
+  .menu-download{
+    display:flex; justify-content:center; margin-top:48px;
+  }
+
+  /* ---------- gallery (one-by-one tilt reveal) ---------- */
+  .gallery{background:var(--cream); overflow:hidden;}
+  .gallery-scroll{display:flex; flex-direction:column; gap:96px;}
+  .gallery-item{
+    display:flex; align-items:center; gap:56px;
+  }
+  .gallery-item:nth-child(even){flex-direction:row-reverse;}
+  .gallery-img-wrap{
+    flex:0 0 auto; width:min(380px, 44vw);
+    border-radius:22px; border:4px solid var(--ink); overflow:hidden;
+    box-shadow:10px 10px 0 var(--purple);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .gallery-item:nth-child(even) .gallery-img-wrap{box-shadow:10px 10px 0 var(--lime);}
+  .gallery-img-wrap:hover{transform:rotate(0deg) translateY(-6px) scale(1.02); box-shadow:14px 14px 0 var(--ink);}
+  .gallery-img-wrap img{width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery-cap{flex:1 1 320px;}
+  .gallery-cap .cap-num{
+    font-family:'Anton'; font-size:0.85rem; color:var(--purple-deep); letter-spacing:1px;
+    display:block; margin-bottom:10px;
+  }
+  .gallery-cap h3{font-size:clamp(1.5rem, 3vw, 2.1rem); margin-bottom:12px; text-transform:none;}
+  .gallery-cap p{font-size:1rem; color:#4a2761; font-weight:500; max-width:380px; line-height:1.6; margin:0;}
+
+  /* ---------- reviews ---------- */
+  .reviews{background:var(--white);}
+  .review-top{display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-bottom:44px;}
+  .rating-badge{
+    background:var(--ink); color:var(--white); border-radius:20px; padding:18px 26px;
+    text-align:center; box-shadow:6px 6px 0 var(--lime);
+  }
+  .rating-badge .num{font-family:'Anton'; font-size:2.4rem; line-height:1;}
+  .rating-badge .stars{color:var(--lime); font-size:1rem; margin:4px 0;}
+  .rating-badge .count{font-size:0.78rem; font-weight:700; color:#cbb7dd;}
+  .review-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;}
+  .review-card{
+    border:2.5px solid var(--ink); border-radius:22px; padding:28px;
+    background:var(--white); position:relative;
+  }
+  .review-card:nth-child(1){box-shadow:7px 7px 0 var(--purple);}
+  .review-card:nth-child(2){box-shadow:7px 7px 0 var(--lime);}
+  .review-card:nth-child(3){box-shadow:7px 7px 0 var(--purple-deep);}
+  .review-stars{color:var(--purple-deep); letter-spacing:2px; margin-bottom:14px; font-size:1rem;}
+  .review-text{font-size:0.98rem; line-height:1.6; color:#3a1c4d; font-weight:500; margin-bottom:20px; min-height:96px;}
+  .review-who{display:flex; align-items:center; gap:12px;}
+  .review-avatar{
+    width:42px; height:42px; border-radius:50%; background:var(--purple);
+    display:flex; align-items:center; justify-content:center; font-family:'Anton';
+    border:2px solid var(--ink); font-size:1rem;
+  }
+  .review-who b{display:block; font-size:0.92rem;}
+  .review-who span{font-size:0.76rem; color:#7a5490; font-weight:600;}
+
+  /* ---------- visit ---------- */
+  .visit{background:var(--purple); position:relative; overflow:hidden;}
+  .visit-grid{display:grid; grid-template-columns:0.95fr 1.05fr; gap:48px; align-items:start;}
+  .visit .section-tag{color:var(--purple-ink);}
+  .visit-card{
+    background:var(--white); border:2.5px solid var(--ink); border-radius:26px;
+    padding:34px; box-shadow:8px 8px 0 var(--ink);
+  }
+  .visit-row{display:flex; gap:16px; padding:16px 0; border-bottom:1px solid #eadcf5;}
+  .visit-row:last-child{border-bottom:none;}
+  .visit-row .icon{
+    width:42px; height:42px; border-radius:12px; background:var(--lime);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    border:2px solid var(--ink); font-size:1.1rem;
+  }
+  .visit-row b{display:block; font-size:0.95rem;}
+  .visit-row p{margin:4px 0 0; font-size:0.9rem; color:#5c3170; font-weight:500;}
+  .map-frame{border:3px solid var(--ink); border-radius:26px; overflow:hidden; box-shadow:8px 8px 0 var(--ink); height:100%; min-height:420px;}
+  .map-frame iframe{width:100%; height:100%; min-height:420px; border:0; display:block;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink); color:var(--white); padding:60px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; margin-bottom:50px;}
+  .footer-brand{font-family:'Anton'; font-size:1.6rem; text-transform:uppercase; margin-bottom:14px;}
+  .footer-brand span{color:var(--lime);}
+  .footer-tag{color:#c9aee0; font-size:0.92rem; max-width:280px; font-weight:500;}
+  footer h4{font-size:0.8rem; letter-spacing:0.6px; text-transform:uppercase; color:var(--lime); margin-bottom:16px; font-weight:800;}
+  footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  footer a{color:#e6d9f0; font-size:0.92rem; font-weight:500;}
+  footer a:hover{color:var(--lime);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.15); padding-top:24px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:0.8rem; color:#c9aee0; font-weight:500;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 920px){
+    .navlinks{display:none;}
+    .burger{display:block;}
+    .brand img{height:52px;}
+    .hero-grid, .about-grid, .menu-cols, .visit-grid{grid-template-columns:1fr;}
+    .about-photos .p1{margin-top:0;}
+    .hero-photo{order:-1; max-width:340px; margin:0 auto;}
+    .review-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .slush-grid{grid-template-columns:1fr;}
+    .slush-photo{max-width:320px; margin:0 auto;}
+    .gallery-item, .gallery-item:nth-child(even){flex-direction:column; align-items:flex-start; gap:24px;}
+    .gallery-img-wrap{width:min(320px, 78vw);}
+  }
+  @media (max-width: 520px){
+    .hero-stats{gap:20px;}
+    .gallery-scroll{gap:64px;}
+  }
+  :focus-visible{outline:3px solid var(--purple-deep); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="brand"><img src="images/logo-2-removebg-preview.png" alt="The Thanda Garam Co. logo"></a>
+    <div class="navlinks">
+      <a href="#slush">The Slush</a>
+      <a href="#about">Our Vibe</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a href="#visit" class="nav-cta">Find Us →</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" style="padding-top:60px;">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow-pill hero-enter" style="transition-delay:.05s;"><span class="star">★★★★★</span> 5.0 rated · 100% Vegetarian</div>
+        <h1 class="hero-enter" style="transition-delay:.15s;">
+          <span class="accent-row p"><span>THANDA</span></span>
+          <span class="accent-row l"><span>GARAM CO.</span></span>
+        </h1>
+        <p class="hero-sub hero-enter" style="transition-delay:.28s;">Slush that melts your afternoon, softy that fixes your mood, churros that end every argument. One tiny shop in Vikaspuri, made for every craving.</p>
+        <div class="hero-ctas hero-enter" style="transition-delay:.4s;">
+          <a href="#menu" class="btn btn-primary">See the Menu</a>
+          <a href="#visit" class="btn btn-ghost">Get Directions</a>
+        </div>
+        <div class="hero-stats hero-enter" style="transition-delay:.5s;">
+          <div class="stat"><b data-count-to="5.0" data-decimal="1">0.0</b><span>★ · 43 Google reviews</span></div>
+          <div class="stat"><b>₹200–400</b><span>per person</span></div>
+          <div class="stat"><b>10:30PM</b><span>we're open till</span></div>
+        </div>
+      </div>
+      <div class="hero-photo hero-enter" style="transition-delay:.2s;">
+        <div class="hero-photo-frame">
+          <img src="images/storefront.png" alt="The Thanda Garam Co. storefront in Vikaspuri, Delhi, lit up with a purple sign and balloon garland">
+        </div>
+        <div class="floaty floaty-1">Made for<br>every<br>craving</div>
+        <div class="floaty floaty-2">Barf ka<br>gola, but<br>drinkable</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>COLA SLUSH <span class="lime">★</span> CHURROS <span class="lime">★</span> CIGAR ROLLS <span class="lime">★</span> FRUIT CREAM <span class="lime">★</span> CHEESE &amp; CORN MOMOS <span class="lime">★</span> SOFTY <span class="lime">★</span></span>
+      <span>COLA SLUSH <span class="lime">★</span> CHURROS <span class="lime">★</span> CIGAR ROLLS <span class="lime">★</span> FRUIT CREAM <span class="lime">★</span> CHEESE &amp; CORN MOMOS <span class="lime">★</span> SOFTY <span class="lime">★</span></span>
+    </div>
+  </div>
+
+  <!-- ================= AUTHENTIC SLUSH ================= -->
+  <section class="slush-promise" id="slush">
+    <div class="wrap slush-grid">
+      <div class="slush-photo reveal-tilt" style="--tilt:-5;">
+        <img src="images/slush-machine.jpeg" alt="The slush machine at The Thanda Garam Co. churning cola, lichi and mango flavours">
+        <div class="slush-badge">
+          <span>ZERO</span>
+          <b>PRE-MIX</b>
+        </div>
+      </div>
+      <div class="slush-copy">
+        <span class="section-tag light">THE REAL DEAL</span>
+        <h2 class="reveal">Authentic slush.<br>No mixing, no shortcuts.</h2>
+        <p class="reveal" style="transition-delay:.08s;">Most slush comes from a packet — pour, dilute, done. Ours doesn't. Every flavour is churned to order from real fruit and cold syrups, so what's spinning in the machine is exactly what lands in your cup. No colouring dumped in for effect, no "just add water."</p>
+        <ul class="slush-features">
+          <li class="reveal" style="transition-delay:.14s;"><span class="chip-icon">🍋</span><div><b>Real fruit, real flavour</b><p>Cola, lichi and mango, made from actual pulp and syrup — not flavouring powder.</p></div></li>
+          <li class="reveal" style="transition-delay:.22s;"><span class="chip-icon">🚫</span><div><b>Zero pre-mix packets</b><p>Nothing arrives ready-made. Every batch is built fresh at the counter.</p></div></li>
+          <li class="reveal" style="transition-delay:.3s;"><span class="chip-icon">❄️</span><div><b>Churned, not just frozen</b><p>Slow-churned to that proper barf-ka-gola texture — thick, never watery.</p></div></li>
+        </ul>
+        <a href="#menu" class="btn btn-primary reveal" style="transition-delay:.38s;">Try a Slush</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="about-photos reveal-tilt" style="--tilt:-4;">
+        <img class="p1" src="images/softy-cone.png" alt="Swirled chocolate softy ice cream cone with a wafer stick">
+        <img class="p2" src="images/drink-churros.png" alt="Cola slush in a Thanda Garam Co. cup next to a box of churros">
+      </div>
+      <div class="about-copy">
+        <span class="section-tag reveal">OUR VIBE</span>
+        <h2 class="section-head reveal" style="margin-bottom:24px; transition-delay:.06s;">Thanda when it's hot.<br>Garam when it's not.</h2>
+        <p class="reveal" style="transition-delay:.12s;">We're a little corner shop in New Krishna Park, Vikaspuri, built for the two moods everyone shows up with: cool it down, or warm it up. So the menu is split the same way — <strong>Thanda</strong> for slush, fruit cream and softy, <strong>Garam</strong> for churros, momos, fries and cigar rolls.</p>
+        <p class="quote-strip reveal" style="transition-delay:.18s;">"The atmosphere was surreal — a quiet, peaceful and surprisingly uplifting environment made it a great place to even just sit down."</p>
+        <p class="reveal" style="transition-delay:.24s;">Everything on the menu is 100% vegetarian, made fresh behind the counter, and served in cups that are basically part of the outfit at this point.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENU ================= -->
+  <section class="menu-section" id="menu">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">THE MENU</span>
+        <h2>Pick your craving</h2>
+        <p>Real prices, straight off our counter card. Every item's 100% pure vegetarian.</p>
+      </div>
+
+      <div class="menu-cols">
+        <!-- THANDA -->
+        <div class="menu-col thanda reveal-tilt" style="--tilt:-3;">
+          <div class="menu-col-head"><span class="swatch"></span><h3>Thanda</h3></div>
+          <div class="menu-col-sub">Cold. Made to melt slowly.</div>
+
+          <div class="menu-group">
+            <h4>Slush <span style="opacity:.6;">— barf ka gola, but drinkable</span></h4>
+            <div class="menu-item"><span class="item-name">Cola<small>Regular 350ml / Large 500ml</small></span><span class="price">₹89 / ₹119</span></div>
+            <div class="menu-item"><span class="item-name">Lichi<small>Regular 350ml / Large 500ml</small></span><span class="price">₹89 / ₹119</span></div>
+            <div class="menu-item"><span class="item-name">Mango<small>Regular 350ml / Large 500ml</small></span><span class="price">₹89 / ₹119</span></div>
+          </div>
+
+          <div class="menu-group">
+            <h4>Fruit Cream</h4>
+            <div class="menu-item"><span class="item-name">Small<small>200ml</small></span><span class="price">₹129</span></div>
+            <div class="menu-item"><span class="item-name">Medium<small>350ml</small></span><span class="price">₹209</span></div>
+            <div class="menu-item"><span class="item-name">Large<small>500ml</small></span><span class="price">₹289</span></div>
+          </div>
+
+          <div class="menu-group" style="margin-bottom:0;">
+            <h4>Softy</h4>
+            <div class="menu-item"><span class="item-name">Classic Vanilla<small>Classic cone / Chocolate cone</small></span><span class="price">₹59 / ₹69</span></div>
+            <div class="menu-item"><span class="item-name">Chocolate<small>Classic cone / Chocolate cone</small></span><span class="price">₹69 / ₹79</span></div>
+            <div class="menu-item"><span class="item-name">Mix Swirl<small>Classic cone / Chocolate cone</small></span><span class="price">₹69 / ₹79</span></div>
+          </div>
+          <div class="menu-note">One topping free · extra topping ₹10</div>
+        </div>
+
+        <!-- GARAM -->
+        <div class="menu-col garam reveal-tilt" style="--tilt:3;">
+          <div class="menu-col-head"><span class="swatch"></span><h3>Garam</h3></div>
+          <div class="menu-col-sub">Hot. Made to share (or not).</div>
+
+          <div class="menu-group">
+            <h4>Churros <span style="opacity:.6;">— a classic Spanish delicacy</span></h4>
+            <div class="menu-item"><span class="item-name">Churro Box<small>5 pcs + 1 dip</small></span><span class="price">₹159</span></div>
+            <div class="menu-item"><span class="item-name">Churro Box<small>8 pcs + 1 dip</small></span><span class="price">₹219</span></div>
+            <div class="menu-item"><span class="item-name">The Big Churro Box<small>12 pcs + 2 dips</small></span><span class="price">₹319</span></div>
+            <div class="menu-item"><span class="item-name">Extra Dip<small>Hazelnut chocolate or white chocolate</small></span><span class="price">₹30</span></div>
+          </div>
+
+          <div class="menu-group">
+            <h4>Momos (Steamed)</h4>
+            <div class="menu-item"><span class="item-name">Veg<small>5 pcs / 8 pcs</small></span><span class="price">₹99 / ₹129</span></div>
+            <div class="menu-item"><span class="item-name">Paneer<small>5 pcs / 8 pcs</small></span><span class="price">₹119 / ₹149</span></div>
+            <div class="menu-item"><span class="item-name">Cheese &amp; Corn<small>5 pcs / 8 pcs</small></span><span class="price">₹139 / ₹169</span></div>
+          </div>
+
+          <div class="menu-group">
+            <h4>Fries</h4>
+            <div class="menu-item"><span class="item-name">Classic Salted<small>Regular / Large</small></span><span class="price">₹99 / ₹129</span></div>
+            <div class="menu-item"><span class="item-name">Peri Peri<small>Regular / Large</small></span><span class="price">₹109 / ₹139</span></div>
+            <div class="menu-item"><span class="item-name">Oh So Cheesy<small>Regular / Large</small></span><span class="price">₹119 / ₹149</span></div>
+          </div>
+
+          <div class="menu-group" style="margin-bottom:0;">
+            <h4>Cigar Roll</h4>
+            <div class="menu-item"><span class="item-name">Veg Cigar Roll</span><span class="price">₹149</span></div>
+            <div class="menu-item"><span class="item-name">Cheese &amp; Corn Roll</span><span class="price">₹179</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-download">
+        <a href="images/menu-card.png" target="_blank" class="btn btn-primary">View Full Menu Card ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="gallery" id="gallery">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">FROM THE COUNTER</span>
+        <h2>What's actually cooking</h2>
+        <p>No stock photos here — this is the counter, the cups and the crew. Scroll on.</p>
+      </div>
+      <div class="gallery-scroll">
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:-6; aspect-ratio:3/5;">
+            <img src="images/cups-three.png" alt="Three Thanda Garam Co. slush cups — cola, mango and a creamy flavour">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">01 / SLUSH</span>
+            <h3>The line-up: Cola, Lichi, Mango</h3>
+            <p>Three flavours, one machine, churned fresh through the day — no two cups look the same colour twice.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:6; aspect-ratio:3/5;">
+            <img src="images/fruit-cream.png" alt="Fruit cream loaded with fresh fruit being drizzled into a cup">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">02 / FRUIT CREAM</span>
+            <h3>Loaded, not garnished</h3>
+            <p>Fruit folded all the way through, not just scattered on top for the photo.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:-6; aspect-ratio:19/16;">
+            <img src="images/churros.png" alt="A box of golden churros with dipping sauce">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">03 / CHURROS</span>
+            <h3>Straight out of the fryer</h3>
+            <p>Crisp on the outside, soft in the middle, served hot with your choice of dip.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:6; aspect-ratio:15/19;">
+            <img src="images/momos.png" alt="Steamed momos dusted with spice, served with chutney">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">04 / MOMOS</span>
+            <h3>Steamed to order</h3>
+            <p>Veg, paneer or cheese &amp; corn, dusted with our house spice and a fiery chutney on the side.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:-6; aspect-ratio:7/9;">
+            <img src="images/cigar-rolls.png" alt="Crispy veg cigar rolls served with dips">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">05 / CIGAR ROLLS</span>
+            <h3>Extra crisp, always</h3>
+            <p>Rolled tight and fried till they shatter — the table favourite, hands down.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:6; aspect-ratio:7/9;">
+            <img src="images/softy.png" alt="Owner pointing at the slush machine with cola, lichi and mango flavours">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">06 /  SOFTY</span>
+            <h3>THE SWEET SPOT</h3>
+            <p>Smooth, creamy, crunchy — a little happiness in every bite. 🍦</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:-6; aspect-ratio:4/5;">
+            <img src="images/softy-machine.png" alt="Staff member smiling next to the softy ice cream machine">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">07 / SWIRLS</span>
+            <h3>Smooth swirls, endless smiles</h3>
+            <p>Freshly swirled, perfectly served, and made with a little extra joy.</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-img-wrap reveal-tilt" style="--tilt:6; aspect-ratio:11/14;">
+            <img src="images/drink-churros.png" alt="Cola slush in a Thanda Garam Co. cup next to a box of churros">
+          </div>
+          <div class="gallery-cap">
+            <span class="cap-num">08 / THE COMBO</span>
+            <h3>Thanda meets Garam</h3>
+            <p>A cold slush and a hot churro box — the whole menu philosophy in one order.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS ================= -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="review-top reveal">
+        <div class="rating-badge">
+          <div class="num"><span data-count-to="5.0" data-decimal="1">0.0</span></div>
+          <div class="stars">★★★★★</div>
+          <div class="count"><span data-count-to="43" data-decimal="0">0</span> Google reviews</div>
+        </div>
+        <div class="section-head" style="margin:0;">
+          <span class="section-tag">WHAT PEOPLE SAY</span>
+          <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);">Straight from Google</h2>
+        </div>
+      </div>
+      <div class="review-grid">
+        <div class="review-card reveal" style="transition-delay:0s;">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Amazing experience — had the cola slush, veg and cheesy cigar rolls and fries. All tasted really good. Really recommended.</p>
+          <div class="review-who">
+            <div class="review-avatar">R</div>
+            <div><b>Ravi Tuteja</b><span>Google review</span></div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:.1s;">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Honestly a great experience. First, the atmosphere — surreal. A quiet, peaceful and surprisingly uplifting place to just sit down.</p>
+          <div class="review-who">
+            <div class="review-avatar">M</div>
+            <div><b>Muhammad Bin Asiaf</b><span>Google review</span></div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:.2s;">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">Best in town! Food, service, everything on point — this is now our go-to hangout spot in Vikaspuri.</p>
+          <div class="review-who">
+            <div class="review-avatar">J</div>
+            <div><b>JingleSprout</b><span>Google review</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISIT ================= -->
+  <section class="visit" id="visit">
+    <div class="wrap visit-grid">
+      <div class="reveal">
+        <span class="section-tag">FIND US</span>
+        <h2 style="font-size:clamp(2rem,4.4vw,2.8rem); margin-bottom:26px;">Come say hi</h2>
+        <div class="visit-card">
+          <div class="visit-row">
+            <div class="icon">📍</div>
+            <div><b>Address</b><p>Shop no. 1, B-48, Pocket C1, New Krishna Park, Vikaspuri, Delhi, 110018</p></div>
+          </div>
+          <div class="visit-row">
+            <div class="icon">🕒</div>
+            <div><b>Hours</b><p>Open daily · closes 10:30 PM</p></div>
+          </div>
+          <div class="visit-row">
+            <div class="icon">💸</div>
+            <div><b>Average cost</b><p>₹200–400 for two people</p></div>
+          </div>
+          <div class="visit-row">
+            <div class="icon">🥗</div>
+            <div><b>Good to know</b><p>100% vegetarian · dine-in &amp; takeaway</p></div>
+          </div>
+          <div class="visit-row">
+            <div class="icon">📸</div>
+            <div><b>Instagram</b><p>@thethandagaramco</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame reveal" style="transition-delay:.1s;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9961962850894!2d77.0762855!3d28.629876099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0572d91c328b%3A0xca1e8fd704399865!2sThe%20Thanda%20Garam%20Co.!5e0!3m2!1sen!2sin!4v1789461261719!5m2!1sen!2sin" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="The Thanda Garam Co. location on Google Maps"></iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Thanda <span>Garam</span> Co.</div>
+        <p class="footer-tag">Made for every craving. Shop no. 1, B-48, Pocket C1, New Krishna Park, Vikaspuri, Delhi 110018.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">Our Vibe</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://instagram.com/thethandagaramco" target="_blank">Instagram — @thethandagaramco</a></li>
+          <li><a href="#visit">Get directions</a></li>
+          <li><a href="#top">Back to top</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Thanda Garam Co. · 100% Pure Vegetarian</span>
+      <span>Designed with love (and a little slush) for Vikaspuri, Delhi</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header shadow on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive:true });
+
+  // Hero entrance sequence (runs once on load)
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.hero-enter').forEach(el => {
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('go')));
+    });
+  });
+
+  // Generic scroll reveal for .reveal and .reveal-tilt elements
+  const revealTargets = document.querySelectorAll('.reveal, .reveal-tilt');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+    revealTargets.forEach(el => io.observe(el));
+  } else {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  }
+
+  // Count-up numbers (rating, review count) once visible
+  const counters = document.querySelectorAll('[data-count-to]');
+  if ('IntersectionObserver' in window && counters.length) {
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-count-to'));
+        const decimals = parseInt(el.getAttribute('data-decimal') || '0', 10);
+        const duration = 1100;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = target * eased;
+          el.textContent = val.toFixed(decimals);
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = target.toFixed(decimals);
+        }
+        requestAnimationFrame(tick);
+        countIO.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(el => countIO.observe(el));
+  }
+</script>
+</body>
+</html>
